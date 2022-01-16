@@ -22,8 +22,7 @@ namespace WorkManager.Controllers
         // GET: Assignments
         public async Task<IActionResult> Index()
         {
-            var assignmentManageDBContext = _context.Assignments.Include(a => a.Employee);
-            return View(await assignmentManageDBContext.ToListAsync());
+            return View(await _context.Assignments.ToListAsync());
         }
 
         // GET: Assignments/Details/5
@@ -35,7 +34,6 @@ namespace WorkManager.Controllers
             }
 
             var assignment = await _context.Assignments
-                .Include(a => a.Employee)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (assignment == null)
             {
@@ -48,7 +46,6 @@ namespace WorkManager.Controllers
         // GET: Assignments/Create
         public IActionResult Create()
         {
-            ViewData["EmployeeId"] = new SelectList(_context.Programmers, "Id", "Id");
             return View();
         }
 
@@ -57,7 +54,7 @@ namespace WorkManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,EmployeeId,Description")] Assignment assignment)
+        public async Task<IActionResult> Create([Bind("Id,Description,AssignmentName")] Assignment assignment)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +62,6 @@ namespace WorkManager.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Programmers, "Id", "Id", assignment.EmployeeId);
             return View(assignment);
         }
 
@@ -82,7 +78,6 @@ namespace WorkManager.Controllers
             {
                 return NotFound();
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Programmers, "Id", "Id", assignment.EmployeeId);
             return View(assignment);
         }
 
@@ -91,7 +86,7 @@ namespace WorkManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,EmployeeId,Description")] Assignment assignment)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Description,AssignmentName")] Assignment assignment)
         {
             if (id != assignment.Id)
             {
@@ -118,7 +113,6 @@ namespace WorkManager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Programmers, "Id", "Id", assignment.EmployeeId);
             return View(assignment);
         }
 
@@ -131,7 +125,6 @@ namespace WorkManager.Controllers
             }
 
             var assignment = await _context.Assignments
-                .Include(a => a.Employee)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (assignment == null)
             {
@@ -139,6 +132,19 @@ namespace WorkManager.Controllers
             }
 
             return View(assignment);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddEmployee([Bind("Id,AssignmentId")] Assignation assignation)
+        {
+            if (!ModelState.IsValid)
+            {
+                _context.Add(assignation);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["AssignmentId"] = new SelectList(_context.Assignments, "Id", "Id", assignation.AssignmentId);
+            return View(assignation);
         }
 
         // POST: Assignments/Delete/5

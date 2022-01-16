@@ -22,6 +22,7 @@ namespace WorkManager.Models
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; } = null!;
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; } = null!;
         public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; } = null!;
+        public virtual DbSet<Assignation> Assignations { get; set; } = null!;
         public virtual DbSet<Assignment> Assignments { get; set; } = null!;
         public virtual DbSet<Contact> Contacts { get; set; } = null!;
         public virtual DbSet<Programmer> Programmers { get; set; } = null!;
@@ -126,24 +127,42 @@ namespace WorkManager.Models
                     .HasForeignKey(d => d.UserId);
             });
 
+            modelBuilder.Entity<Assignation>(entity =>
+            {
+                entity.ToTable("Assignation");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.AssignmentId).HasColumnName("AssignmentID");
+
+                entity.Property(e => e.ProgrammerId).HasColumnName("ProgrammerID");
+
+                entity.HasOne(d => d.Assignment)
+                    .WithMany(p => p.Assignations)
+                    .HasForeignKey(d => d.AssignmentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Assignation_Assignment");
+
+                entity.HasOne(d => d.Programmer)
+                    .WithMany(p => p.Assignations)
+                    .HasForeignKey(d => d.ProgrammerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Assignation_Programmers");
+            });
+
             modelBuilder.Entity<Assignment>(entity =>
             {
                 entity.ToTable("Assignment");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.AssignmentName)
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Description)
                     .HasMaxLength(100)
                     .IsUnicode(false);
-
-                entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
-
-                entity.HasOne(d => d.Employee)
-                    .WithMany(p => p.Assignments)
-                    .HasForeignKey(d => d.EmployeeId)
-                    .HasConstraintName("FK_Assignment_Programmers");
             });
 
             modelBuilder.Entity<Contact>(entity =>

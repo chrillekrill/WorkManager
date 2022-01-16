@@ -7,15 +7,16 @@ namespace WorkManager.Models
     {
         public Programmer()
         {
-            Assignments = new HashSet<Assignment>();
+            Assignations = new HashSet<Assignation>();
             Contacts = new HashSet<Contact>();
         }
 
         public long Id { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
+        public string FullName => $"{FirstName} {LastName}";
 
-        public virtual ICollection<Assignment> Assignments { get; set; }
+        public virtual ICollection<Assignation> Assignations { get; set; }
         public virtual ICollection<Contact> Contacts { get; set; }
     }
 }
