@@ -7,7 +7,7 @@
 <h1>Assignments</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a type="button" class="btn btn-outline rounded" asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -31,9 +31,9 @@
                 @Html.DisplayFor(modelItem => item.Programmer.FirstName) @Html.DisplayFor(modelItem => item.Programmer.LastName)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a type="button" class="btn btn-outline rounded" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a type="button" class="btn btn-outline rounded" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a type="button" class="btn btn-outline-danger rounded" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

@@ -131,6 +131,9 @@ namespace WorkManager.Models
             {
                 entity.ToTable("Assignation");
 
+                entity.HasIndex(e => new { e.ProgrammerId, e.AssignmentId }, "NonClusteredIndex-20220117-124338")
+                    .IsUnique();
+
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.AssignmentId).HasColumnName("AssignmentID");

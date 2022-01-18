@@ -11,5 +11,6 @@ namespace WorkManager.Models
 
         public virtual Assignment Assignment { get; set; } = null!;
         public virtual Programmer Programmer { get; set; } = null!;
+
     }
 }
