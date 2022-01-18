@@ -12613,3 +12613,19 @@ fieldset:disabled .btn {
 .alert-dark {
     background-color: #303030;
 }
+.btn-outline {
+    color: #4fbfa8;
+    background-color: #343434;
+    border-color: #4fbfa8;
+    font-weight: bold;
+    border-radius: 0;
+}
+
+    .btn-outline:hover,
+    .btn-outline:active,
+    .btn-outline:focus,
+    .btn-outline.active {
+        background: #4fbfa8;
+        color: #ffffff;
+        border-color: #4fbfa8;
+    }

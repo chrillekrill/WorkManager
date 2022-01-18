@@ -22,7 +22,7 @@ namespace WorkManager.Controllers
         // GET: Assignments
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Assignments.ToListAsync());
+            return View(await _context.Assignments.Include(a => a.Assignations).ThenInclude(p => p.Programmer).ToListAsync());
         }
 
         // GET: Assignments/Details/5

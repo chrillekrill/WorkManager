@@ -12,7 +12,7 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ProgrammerId" class="control-label"></label>
+                <label asp-for="ProgrammerId" class="control-label">Name</label>
                 <select asp-for="ProgrammerId" class ="form-control" asp-items="ViewBag.ProgrammerId"></select>
             </div>
             <div class="form-group">
@@ -20,7 +20,7 @@
                 <input type="hidden" asp-for="AssignmentId" value="test"></input>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Add" class="btn btn-outline rounded" style="width: 20%"/>
             </div>
         </form>
     </div>

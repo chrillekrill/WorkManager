@@ -48,7 +48,7 @@ namespace WorkManager.Controllers
         // GET: Contacts/Create
         public IActionResult Create()
         {
-            ViewData["ContactId"] = new SelectList(_context.Programmers, "Id", "Id");
+            ViewData["ContactId"] = new SelectList(_context.Programmers, nameof(Programmer.Id), nameof(Programmer.FullName));
             return View();
         }
 

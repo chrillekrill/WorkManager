@@ -4,19 +4,16 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Programmers</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a type="button" class="btn btn-outline rounded" asp-action="Create">Add Programmer</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                Name
             </th>
             <th></th>
         </tr>
@@ -25,15 +22,12 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
+                @Html.DisplayFor(modelItem => item.FullName)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            <td class="d-flex justify-content-end">
+                <a type="button" class="btn btn-outline rounded" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                <a type="button" class="btn btn-outline rounded" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                <a type="button" class="btn btn-outline-danger rounded" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }
